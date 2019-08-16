@@ -1,0 +1,43 @@
+# encoding: utf-8
+import csv
+import codecs
+from time import sleep
+import unicodecsv
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+files = open("json_create_template.csv", 'rb')
+reader = csv.reader(files, delimiter='|', quotechar='"')
+for line in reader:
+    print line
+print '***'*10
+files.close()
+
+# s = u'\xe6\x97\xa0\xe5\x90\x8d'
+# s2 = s.encode('raw_unicode_escape')
+# print s2
+
+print '--------DictReader-------'
+
+f = open("json_create_template.csv", 'rb')
+dictr = csv.DictReader(f, delimiter='|', quotechar='"')
+risklist = []
+risklist_sub = {}
+
+for row in dictr:
+    risklist_sub['souceName'] = row['souceName']
+    risklist_sub['Description'] = row['Description']
+    risklist_sub['influenceType'] = row['influenceType']
+    risklist_sub['sourceClientId'] = row['sourceClientId']
+    risklist_sub['sourceClientType'] = row['sourceClientType']
+
+    print "risklist_sub is:", risklist_sub
+
+    risklist = risklist_sub
+    print "risklist is:    ", risklist
+    print risklist_sub['souceName']
+files.close()
+
+
+print '-----------file is closed------------'
